@@ -1,152 +1,106 @@
-{
- "cells": [
-  {
-   "cell_type": "code",
-   "execution_count": null,
-   "id": "13763073-6e2b-443f-9d43-537ef3884e4c",
-   "metadata": {},
-   "outputs": [],
-   "source": [
-    "<!DOCTYPE html>\n",
-    "<html>\n",
-    "<head>\n",
-    "<meta charset=\"UTF-8\">\n",
-    "<title>Да прибудет с нами Дженни </title>\n",
-    "\n",
-    "<style>\n",
-    "body {\n",
-    "  margin: 0;\n",
-    "  font-family: Arial, sans-serif;\n",
-    "  background: #ffe6f0;\n",
-    "  text-align: center;\n",
-    "}\n",
-    "\n",
-    "h2 {\n",
-    "  margin-top: 20px;\n",
-    "  color: #333;\n",
-    "}\n",
-    "\n",
-    ".section {\n",
-    "  background: white;\n",
-    "  margin: 20px auto;\n",
-    "  padding: 20px;\n",
-    "  width: 90%;\n",
-    "  max-width: 600px;\n",
-    "  border-radius: 15px;\n",
-    "  box-shadow: 0 0 10px rgba(0,0,0,.15);\n",
-    "}\n",
-    "\n",
-    ".gallery img {\n",
-    "  width: 100px;\n",
-    "  margin: 8px;\n",
-    "  cursor: pointer;\n",
-    "  border-radius: 10px;\n",
-    "  transition: 0.2s;\n",
-    "}\n",
-    "\n",
-    ".gallery img:hover {\n",
-    "  transform: scale(1.1);\n",
-    "  border: 2px solid #ff7aa2;\n",
-    "}\n",
-    "\n",
-    ".full-photo {\n",
-    "  width: 80%;\n",
-    "  margin: 10px auto;\n",
-    "  border-radius: 15px;\n",
-    "}\n",
-    "\n",
-    "button {\n",
-    "  background: #ff7aa2;\n",
-    "  border: none;\n",
-    "  padding: 10px 18px;\n",
-    "  border-radius: 15px;\n",
-    "  color: white;\n",
-    "  margin-top: 10px;\n",
-    "  cursor: pointer;\n",
-    "}\n",
-    "</style>\n",
-    "</head>\n",
-    "\n",
-    "<body>\n",
-    "\n",
-    "<div class=\"section\">\n",
-    "<h2>Да прибудет с нами Дженни</h2>\n",
-    "<p>Нажми на миниатюру, чтобы увидеть фото крупнее</p>\n",
-    "<div class=\"gallery\">\n",
-    "  <img src=\"https://i.pinimg.com/564x/e2/5f/5d/e25f5d93017df8e3a1ce865885e0da57.jpg\" onclick=\"showBig(this)\">\n",
-    "  <img src=\"https://i.pinimg.com/564x/79/d3/5a/79d35aa8496de4072b3c6612a9c1df05.jpg\" onclick=\"showBig(this)\">\n",
-    "  <img src=\"https://i.pinimg.com/564x/09/2f/d0/092fd04082f6e89209d5f5a3e20d01fe.jpg\" onclick=\"showBig(this)\">\n",
-    "  <img src=\"https://i.pinimg.com/564x/eb/cc/f2/ebccf260ddbb0284ef4ce384ad358437.jpg\" onclick=\"showBig(this)\">\n",
-    "  <img src=\"https://i.pinimg.com/564x/1a/93/93/1a9393940869d538805bfeee55f6cd3f.jpg\" onclick=\"showBig(this)\">\n",
-    "  <img src=\"https://i.pinimg.com/564x/69/0c/44/690c4424d1ada4147b95f75cf2e3a0c9.jpg\" onclick=\"showBig(this)\">\n",
-    "</div>\n",
-    "\n",
-    "<img id=\"bigImg\" class=\"full-photo\" src=\"\">\n",
-    "<button onclick=\"hideBig()\">Скрыть фото</button>\n",
-    "</div>\n",
-    "\n",
-    "<!-- Видео -->\n",
-    "<div class=\"section\">\n",
-    "<h2>Смешни видосики</h2>\n",
-    "<button onclick=\"openVideo(0)\">Видео 1</button>\n",
-    "<button onclick=\"openVideo(1)\">Видео 2</button>\n",
-    "<button onclick=\"openVideo(2)\">Видео 3</button>\n",
-    "<button onclick=\"openVideo(3)\">Видео 4</button>\n",
-    "<button onclick=\"openVideo(4)\">Видео 5</button>\n",
-    "<button onclick=\"openVideo(5)\">Видео 6</button>\n",
-    "<button onclick=\"openVideo(6)\">Видео 7</button>\n",
-    "<button onclick=\"openVideo(7)\">Видео 8</button>\n",
-    "</div>\n",
-    "\n",
-    "<script>\n",
-    "function showBig(el) {\n",
-    "  document.getElementById(\"bigImg\").src = el.src;\n",
-    "}\n",
-    "\n",
-    "function hideBig() {\n",
-    "  document.getElementById(\"bigImg\").src = \"\";\n",
-    "}\n",
-    "\n",
-    "const videos = [\n",
-    "  \"https://www.youtube.com/watch?v=iabAuKv9KPg\",\n",
-    "  \"https://www.youtube.com/watch?v=coJLXcsnkfk\",\n",
-    "  \"https://www.youtube.com/watch?v=lFibEYEv3nM\",\n",
-    "  \"https://www.youtube.com/watch?v=0e_MjGFHpW4\",\n",
-    "  \"https://www.youtube.com/watch?v=2XhVg38cDTU\",\n",
-    "  \"https://www.youtube.com/watch?v=Sp9Vwil1OPk\",\n",
-    "  \"https://www.youtube.com/watch?v=PIOQWIvdUoM\",\n",
-    "  \"https://www.youtube.com/watch?v=phRn9Thc1zc\"\n",
-    "];\n",
-    "\n",
-    "function openVideo(i) {\n",
-    "  window.open(videos[i], \"_blank\");\n",
-    "}\n",
-    "</script>\n",
-    "\n",
-    "</body>\n",
-    "</html>\n"
-   ]
-  }
- ],
- "metadata": {
-  "kernelspec": {
-   "display_name": "Python 3 (ipykernel)",
-   "language": "python",
-   "name": "python3"
-  },
-  "language_info": {
-   "codemirror_mode": {
-    "name": "ipython",
-    "version": 3
-   },
-   "file_extension": ".py",
-   "mimetype": "text/x-python",
-   "name": "python",
-   "nbconvert_exporter": "python",
-   "pygments_lexer": "ipython3",
-   "version": "3.12.4"
-  }
- },
- "nbformat": 4,
- "nbformat_minor": 5
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Да прибудет с нами Дженни</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: Arial;
+  background: #ffe6f0;
+  text-align: center;
 }
+
+.section {
+  background: white;
+  margin: 20px auto;
+  padding: 20px;
+  max-width: 600px;
+  border-radius: 20px;
+  box-shadow: 0 0 15px rgba(0,0,0,.2);
+}
+
+.gallery img {
+  width: 100px;
+  margin: 8px;
+  cursor: pointer;
+  border-radius: 10px;
+}
+
+.full-photo {
+  width: 80%;
+  margin-top: 15px;
+  border-radius: 15px;
+}
+
+button {
+  background: #ff7aa2;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 15px;
+  color: white;
+  margin: 5px;
+  cursor: pointer;
+}
+</style>
+</head>
+
+<body>
+
+<div class="section">
+<h2>для морального саппорта</h2>
+<p>Нажми на миниатюру, чтобы увидеть фото крупнее</p>
+
+<div class="gallery">
+<img src="https://i.pinimg.com/564x/e2/5f/5d/e25f5d93017df8e3a1ce865885e0da57.jpg" onclick="showBig(this)">
+<img src="https://i.pinimg.com/564x/79/d3/5a/79d35aa8496de4072b3c6612a9c1df05.jpg" onclick="showBig(this)">
+<img src="https://i.pinimg.com/564x/09/2f/d0/092fd04082f6e89209d5f5a3e20d01fe.jpg" onclick="showBig(this)">
+<img src="https://i.pinimg.com/564x/eb/cc/f2/ebccf260ddbb0284ef4ce384ad358437.jpg" onclick="showBig(this)">
+<img src="https://i.pinimg.com/564x/1a/93/93/1a9393940869d538805bfeee55f6cd3f.jpg" onclick="showBig(this)">
+<img src="https://i.pinimg.com/564x/69/0c/44/690c4424d1ada4147b95f75cf2e3a0c9.jpg" onclick="showBig(this)">
+</div>
+
+<img id="bigImg" class="full-photo">
+<button onclick="hideBig()">Скрыть фото</button>
+</div>
+
+<div class="section">
+<h2>Смешни видосики</h2>
+<button onclick="openVideo(0)">Видео 1</button>
+<button onclick="openVideo(1)">Видео 2</button>
+<button onclick="openVideo(2)">Видео 3</button>
+<button onclick="openVideo(3)">Видео 4</button>
+<button onclick="openVideo(4)">Видео 5</button>
+<button onclick="openVideo(5)">Видео 6</button>
+<button onclick="openVideo(6)">Видео 7</button>
+<button onclick="openVideo(7)">Видео 8</button>
+</div>
+
+<script>
+function showBig(el) {
+  document.getElementById("bigImg").src = el.src;
+}
+
+function hideBig() {
+  document.getElementById("bigImg").src = "";
+}
+
+const videos = [
+"https://www.youtube.com/watch?v=iabAuKv9KPg",
+"https://www.youtube.com/watch?v=coJLXcsnkfk",
+"https://www.youtube.com/watch?v=lFibEYEv3nM",
+"https://www.youtube.com/watch?v=0e_MjGFHpW4",
+"https://www.youtube.com/watch?v=2XhVg38cDTU",
+"https://www.youtube.com/watch?v=Sp9Vwil1OPk",
+"https://www.youtube.com/watch?v=PIOQWIvdUoM",
+"https://www.youtube.com/watch?v=phRn9Thc1zc"
+];
+
+function openVideo(i) {
+  window.open(videos[i], "_blank");
+}
+</script>
+
+</body>
+</html>
