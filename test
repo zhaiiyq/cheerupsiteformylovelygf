@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>just some cheer-up content</title>
+
+<style>
+body {
+    margin:0;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:#ffe6f0;
+    font-family:Arial;
+}
+
+.card {
+    background:white;
+    padding:40px;
+    border-radius:20px;
+    text-align:center;
+    width:350px;
+    box-shadow:0 10px 20px rgba(0,0,0,.15);
+}
+
+button {
+    padding:12px 25px;
+    border:none;
+    border-radius:15px;
+    background:#ff7aa2;
+    color:white;
+    font-size:16px;
+    cursor:pointer;
+}
+
+img {
+    width:200px;
+    margin-top:20px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+<h2>Hi cutie</h2>
+<p id="text">just a small website to make you smile</p>
+
+<button onclick="cheer()">посмеяться</button>
+
+<br>
+<img id="pic" src="">
+</div>
+
+<script>
+const texts = [
+"💖",
+"🤍",
+"🌸",
+"😊",
+"✨"
+];
+
+const pics = [
+"https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif",
+"https://media.giphy.com/media/MDJ9IbxxvDUQM/giphy.gif",
+"https://media.giphy.com/media/3oriO0OEd9QIDdllqo/giphy.gif"
+];
+
+function cheer(){
+document.getElementById("text").innerText =
+texts[Math.floor(Math.random()*texts.length)];
+
+document.getElementById("pic").src =
+pics[Math.floor(Math.random()*pics.length)];
+}
+</script>
+
+</body>
+</html>
