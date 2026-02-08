@@ -202,7 +202,7 @@ function sendWish() {
     headers: {"Content-Type": "application/json"},
     body: JSON.stringify({
       chat_id: CHAT_ID,
-      text: `💌 Сообщение с сайта:\n\n${text}`
+      text: `💌 Сообщение от Ару:\n\n${text}`
     })
   }).then(() => {
     confirmText.innerHTML =
