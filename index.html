@@ -21,9 +21,7 @@ body {
   box-shadow: 0 0 15px rgba(0,0,0,.2);
 }
 
-.hidden {
-  display: none;
-}
+.hidden { display: none; }
 
 .gallery img {
   width: 100px;
@@ -47,41 +45,39 @@ button {
   margin: 5px;
   cursor: pointer;
 }
+
+textarea {
+  width: 90%;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  resize: none;
+}
 </style>
 </head>
 
 <body>
 
-<!-- Hi cutie -->
+<!-- 🌸 WELCOME -->
 <div id="welcome" class="section">
+  <h2>Hi cutie &lt;3</h2>
 
-  <h2>Hi cutie <3</h2>
+  <img 
+    src="https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExbXA2bGxnNXphMDIybjI4ZGx4aHp0YjR0YnN6ZzkyZzEyc3MxZmM2aCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/EzP85aNlqGXWo/giphy.gif"
+    style="width:180px; margin:15px 0; border-radius:20px;"
+  >
 
-  <img  
-  src="https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExbXA2bGxnNXphMDIybjI4ZGx4aHp0YjR0YnN6ZzkyZzEyc3MxZmM2aCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/EzP85aNlqGXWo/giphy.gif"
-  alt="Cute cat"
-  style="width:180px; margin:15px 0; border-radius:20px;"
->
+  <p>This mini website is here to cheer you up a little 💗</p>
+  <p>There are a few sections waiting for you — choose what you'd like to see right now</p>
 
-
-  <p>
-    This mini website is here to cheer you up a little 💗
-  </p>
-
-  <p>
-    There are a few sections waiting for you - choose what you'd like to see right now
-  </p>
-
-  <button onclick="openPhotos()">Да прибудет с нами Дженни🙏🏼🫦</button>
-  <br>
-  <button onclick="openVideos()">Смешни видосики👀</button>
-
+  <button onclick="openPhotos()">Да прибудет с нами Дженни🙏🏼🫦</button><br>
+  <button onclick="openVideos()">Смешни видосики👀</button><br>
+  <button onclick="openWish()">Я хочу... 💌</button>
 </div>
 
-<!-- 📸 ФОТО -->
+<!-- 📸 PHOTOS -->
 <div id="photos" class="section hidden">
 <h2>для морального саппорта</h2>
-<p>Нажми на миниатюру, чтобы увидеть фото крупнее</p>
 
 <div class="gallery">
 <img src="photo1.jpg" onclick="showBig(this)">
@@ -105,13 +101,12 @@ button {
 <img src="photo19.jpg" onclick="showBig(this)">
 </div>
 
-<img id="bigImg" class="full-photo">
-<br>
+<img id="bigImg" class="full-photo"><br>
 <button onclick="hideBig()">Скрыть фото</button>
 <button onclick="goHome()">⬅ Назад</button>
 </div>
 
-<!-- 😂 ВИДЕО -->
+<!-- 😂 VIDEOS -->
 <div id="videos" class="section hidden">
 <h2>Смешни видосики👀</h2>
 <button onclick="openVideo(0)">Adele singing woman</button>
@@ -121,12 +116,35 @@ button {
 <button onclick="openVideo(4)">Видео 5</button>
 <button onclick="openVideo(5)">Видео 6</button>
 <button onclick="openVideo(6)">Видео 7</button>
-<button onclick="openVideo(7)">Видео 8</button>
-<br><br>
+<button onclick="openVideo(7)">Видео 8</button><br><br>
+<button onclick="goHome()">⬅ Назад</button>
+</div>
+
+<!-- 💌 WISH -->
+<div id="wish" class="section hidden">
+<h2>💌 Чего тебе хочется сейчас?</h2>
+
+<p>Напиши всё, что угодно 🤍</p>
+
+<textarea id="wishText" rows="4" placeholder="Мне бы хотелось..."></textarea><br><br>
+
+<button onclick="sendWish()">Отправить 💗</button>
+
+<p id="confirmText" style="color:#ff7aa2; margin-top:10px;"></p>
+
 <button onclick="goHome()">⬅ Назад</button>
 </div>
 
 <script>
+// ⚠️ ВАЖНО: ВСТАВЬ СЮДА
+const BOT_TOKEN = "7981263707:AAEEMkoDHj-3NPntDABOyvzjjtjIuM5vcJc";
+const CHAT_ID = "1256829351";
+
+const welcome = document.getElementById("welcome");
+const photos = document.getElementById("photos");
+const videosDiv = document.getElementById("videos");
+const wish = document.getElementById("wish");
+
 function openPhotos() {
   welcome.classList.add("hidden");
   photos.classList.remove("hidden");
@@ -137,18 +155,24 @@ function openVideos() {
   videosDiv.classList.remove("hidden");
 }
 
+function openWish() {
+  welcome.classList.add("hidden");
+  wish.classList.remove("hidden");
+}
+
 function goHome() {
   photos.classList.add("hidden");
   videosDiv.classList.add("hidden");
+  wish.classList.add("hidden");
   welcome.classList.remove("hidden");
 }
 
 function showBig(el) {
-  document.getElementById("bigImg").src = el.src;
+  bigImg.src = el.src;
 }
 
 function hideBig() {
-  document.getElementById("bigImg").src = "";
+  bigImg.src = "";
 }
 
 const videos = [
@@ -166,10 +190,29 @@ function openVideo(i) {
   window.open(videos[i], "_blank");
 }
 
-// фиксим id для видео
-const videosDiv = document.getElementById("videos");
+function sendWish() {
+  const text = wishText.value.trim();
+  if (!text) {
+    alert("Сначала напиши что-нибудь 🤍");
+    return;
+  }
+
+  fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify({
+      chat_id: CHAT_ID,
+      text: `💌 Сообщение с сайта:\n\n${text}`
+    })
+  }).then(() => {
+    confirmText.innerText =
+      "Ваш запрос принят 💗 Курьер(ваша девушка) скоро с вами свяжется";
+    wishText.value = "";
+  }).catch(() => {
+    alert("Ошибка отправки 😢");
+  });
+}
 </script>
 
 </body>
 </html>
-
