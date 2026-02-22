@@ -46,7 +46,7 @@ button {
   cursor: pointer;
 }
 
-textarea {
+textarea, input[type="text"] {
   width: 90%;
   padding: 10px;
   border-radius: 10px;
@@ -72,13 +72,13 @@ textarea {
 
   <button onclick="openPhotos()">Да прибудет с нами Дженни🙏🏼🫦</button><br>
   <button onclick="openVideos()">Смешни видосики👀</button><br>
-  <button onclick="openWish()">Я хочу... 💌</button>
+  <button onclick="openWish()">Я хочу... 💌</button><br>
+  <button onclick="openShare()">Поделиться чем-то смешным 😈</button>
 </div>
 
 <!-- 📸 PHOTOS -->
 <div id="photos" class="section hidden">
 <h2>для морального саппорта</h2>
-
 <div class="gallery">
 <img src="photo1.jpg" onclick="showBig(this)">
 <img src="photo2.jpg" onclick="showBig(this)">
@@ -123,20 +123,29 @@ textarea {
 <!-- 💌 WISH -->
 <div id="wish" class="section hidden">
 <h2>💌 Чего тебе хочется сейчас?</h2>
-
 <p>Форма приёма пожеланий 🤍</p>
-
 <textarea id="wishText" rows="4" placeholder="Мне бы хотелось..."></textarea><br><br>
-
 <button onclick="sendWish()">Отправить</button>
-
 <p id="confirmText" style="color:#ff7aa2; margin-top:10px;"></p>
+<button onclick="goHome()">⬅ Назад</button>
+</div>
+
+<!-- 😈 SHARE -->
+<div id="share" class="section hidden">
+<h2>😈 Поделись чем-то смешным</h2>
+
+<input type="text" id="shareText" placeholder="Текст..."><br><br>
+<input type="text" id="shareLink" placeholder="Ссылка..."><br><br>
+<input type="file" id="sharePhoto" accept="image/*"><br><br>
+
+<button onclick="sendShare()">Отправить 😈</button>
+
+<p id="shareConfirm" style="color:#ff7aa2; margin-top:10px;"></p>
 
 <button onclick="goHome()">⬅ Назад</button>
 </div>
 
 <script>
-// ⚠️ ВАЖНО: ВСТАВЬ СЮДА
 const BOT_TOKEN = "7981263707:AAEEMkoDHj-3NPntDABOyvzjjtjIuM5vcJc";
 const CHAT_ID = "1256829351";
 
@@ -144,36 +153,23 @@ const welcome = document.getElementById("welcome");
 const photos = document.getElementById("photos");
 const videosDiv = document.getElementById("videos");
 const wish = document.getElementById("wish");
+const share = document.getElementById("share");
 
-function openPhotos() {
-  welcome.classList.add("hidden");
-  photos.classList.remove("hidden");
-}
-
-function openVideos() {
-  welcome.classList.add("hidden");
-  videosDiv.classList.remove("hidden");
-}
-
-function openWish() {
-  welcome.classList.add("hidden");
-  wish.classList.remove("hidden");
-}
+function openPhotos() { welcome.classList.add("hidden"); photos.classList.remove("hidden"); }
+function openVideos() { welcome.classList.add("hidden"); videosDiv.classList.remove("hidden"); }
+function openWish() { welcome.classList.add("hidden"); wish.classList.remove("hidden"); }
+function openShare() { welcome.classList.add("hidden"); share.classList.remove("hidden"); }
 
 function goHome() {
   photos.classList.add("hidden");
   videosDiv.classList.add("hidden");
   wish.classList.add("hidden");
+  share.classList.add("hidden");
   welcome.classList.remove("hidden");
 }
 
-function showBig(el) {
-  bigImg.src = el.src;
-}
-
-function hideBig() {
-  bigImg.src = "";
-}
+function showBig(el) { bigImg.src = el.src; }
+function hideBig() { bigImg.src = ""; }
 
 const videos = [
 "https://www.youtube.com/watch?v=pcFgbbiPrs0",
@@ -186,16 +182,11 @@ const videos = [
 "https://www.youtube.com/watch?v=phRn9Thc1zc"
 ];
 
-function openVideo(i) {
-  window.open(videos[i], "_blank");
-}
+function openVideo(i) { window.open(videos[i], "_blank"); }
 
 function sendWish() {
   const text = wishText.value.trim();
-  if (!text) {
-    alert("Сначала напиши что-нибудь 🤍");
-    return;
-  }
+  if (!text) { alert("Напиши что-нибудь "); return; }
 
   fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
     method: "POST",
@@ -206,11 +197,49 @@ function sendWish() {
     })
   }).then(() => {
     confirmText.innerHTML =
-  "Ваш запрос принят 💗<br>Курьер (ваша девушка) скоро с вами свяжется";
+      "Ваш запрос принят 💗<br>Курьер (ваша девушка) скоро с вами свяжется";
     wishText.value = "";
-  }).catch(() => {
-    alert("Ошибка отправки 😢");
-  });
+  }).catch(() => alert("Ошибка отправки 😢"));
+}
+
+async function sendShare() {
+  const text = shareText.value.trim();
+  const link = shareLink.value.trim();
+  const file = sharePhoto.files[0];
+  const confirm = document.getElementById("shareConfirm");
+
+  if (!text && !link && !file) {
+    alert("Отправить что-то смешни");
+    return;
+  }
+
+  if (text || link) {
+    await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({
+        chat_id: CHAT_ID,
+        text: `Смешное от Ару:\n\n${text}\n${link}`
+      })
+    });
+  }
+
+  if (file) {
+    const formData = new FormData();
+    formData.append("chat_id", CHAT_ID);
+    formData.append("photo", file);
+
+    await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendPhoto`, {
+      method: "POST",
+      body: formData
+    });
+  }
+
+  confirm.innerHTML = "Отправлено <br>Мем доставлен";
+
+  shareText.value = "";
+  shareLink.value = "";
+  sharePhoto.value = "";
 }
 </script>
 
