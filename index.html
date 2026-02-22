@@ -132,13 +132,13 @@ textarea, input[type="text"] {
 
 <!-- 😈 SHARE -->
 <div id="share" class="section hidden">
-<h2>😈 Поделись чем-то смешным</h2>
+<h2>ОТправить что-то смешни</h2>
 
 <input type="text" id="shareText" placeholder="Текст..."><br><br>
 <input type="text" id="shareLink" placeholder="Ссылка..."><br><br>
 <input type="file" id="sharePhoto" accept="image/*"><br><br>
 
-<button onclick="sendShare()">Отправить 😈</button>
+<button onclick="sendShare()">Отправить</button>
 
 <p id="shareConfirm" style="color:#ff7aa2; margin-top:10px;"></p>
 
@@ -235,7 +235,7 @@ async function sendShare() {
     });
   }
 
-  confirm.innerHTML = "Отправлено <br>Мем доставлен";
+  confirm.innerHTML = "Отправлено";
 
   shareText.value = "";
   shareLink.value = "";
